@@ -1,36 +1,40 @@
 # Cadence
 
-**Pet Rhythm Beat** — Rhythm game where pets dance on synchronized beats using Motion clips.
+**Let your pet dance to the beat.**
 
-Part of [ComputerPets](https://github.com/RicheyWorks/computerpets). Map: [computerpets-ecosystem](https://github.com/RicheyWorks/computerpets-ecosystem).
+A planned rhythm minigame pairing charted tracks with species-specific dance clips and forgiving failure feedback.
 
-| | |
+**Stage: design scaffold.** This checkout contains a design document and a source placeholder. The experience below is planned; there is no runnable app or integrated service yet.
+
+[Status](#status) · [Planned experience](#planned-experience) · [Contributor quickstart](#contributor-quickstart) · [Game design](docs/DESIGN.md) · [Ecosystem map](https://github.com/RicheyWorks/computerpets-ecosystem)
+
+## Status
+
+| Available today | What you can inspect |
 | --- | --- |
-| Status | Design scaffold — loop and engine frozen |
-| License | MIT |
-| Tokens | Minigames never mint or burn. Tired overlay, not a dead lineage. |
-| First pet | [Meet Rui first](https://github.com/RicheyWorks/computerpets/blob/main/docs/START-HERE.md). This game is optional. |
+| [Game design](docs/DESIGN.md) | Intended behavior, boundaries, and planned dependencies. |
+| [Source placeholder](src/game.gd) | Godot Node stub; no project.godot or playable scene is checked in. |
+| [MIT license](LICENSE) | Licensing terms for the repository. |
 
-## The loop
+Gameplay, endpoints, integration arrows, and failure handling on this page describe implementation targets. No build/test harness, CI workflow, or product screenshots are included in this scaffold.
 
-Motion already bakes walk cycles. Cadence bakes dance: hit windows keyed to species size (frog vs panda). Misses drop mood slightly, never HP.
+## Planned experience
 
-## Who plays
+- Pick a track + pet.
+- Notes from official chart pack (SDK can add).
+- Full combo = treat. Fail = embarrassed emote.
+- Twitch can send emoji notes later.
 
-Players with a speaker. Motion supplies dance.
-
-## What it is not
-
-HP combat. Misses drop mood slightly.
-
-## Genre and engine
+### Planned technology
 
 - Genre: **Rhythm minigame**
 - Engine: **Godot**
 - Stack: Godot 4 · AnimatedSprite · Motion dance clips · Web Audio-equivalent in Godot
 - Default surface: `Godot editor`
 
-## Architecture
+### Planned connections
+
+These arrows show intended dependencies, rather than working integrations.
 
 ```mermaid
 flowchart LR
@@ -39,71 +43,47 @@ flowchart LR
   encore -.-> cadence
 ```
 
-## How you play
+## Contributor quickstart
 
-1. Pick a track + pet.
-2. Notes from official chart pack (SDK can add).
-3. Full combo = treat. Fail = embarrassed emote.
-4. Twitch can send emoji notes later.
+With access to this private repository, Git and PowerShell are enough to review the scaffold:
 
-## First slice
+```powershell
+git clone https://github.com/RicheyWorks/computerpets-cadence.git
+Set-Location computerpets-cadence
+Get-Content docs/DESIGN.md
+Get-Content src/game.gd
+```
 
-Build this and stop.
+Read [Game design](docs/DESIGN.md) before choosing implementation details. The commands above inspect the checked-in files; app installation, editor launch, and server startup become possible after a buildable project and entry point are added.
+
+### First implementation target
 
 **One official chart, Rui dance clip, full combo = treat.**
 
 You know it works when: Audio drift recalibrates. Custom track without a chart refuses.
 
-## Environment
+Treat this as an acceptance target for a future implementation. Start with the documented slice, add the required project setup and focused tests, and update these instructions with commands that work from a fresh clone.
 
-Godot 4
+## Design boundaries
 
-## Failure doctrine
+1. Minigames cannot mint or burn NFTs by themselves (Minter is the write path).
+2. Stats come from lived overlay care + Dojo caps, not cash shop.
+3. Species kits stay inside Lore. Illegal hybrids never spawn.
+4. Fail soft: the desktop overlay process is not this process.
+
+**Required failure behavior:**
 
 Audio drift → recalibrate, do not punish. No GPU → lower FPS, same windows. Custom track without chart → refuse.
 
-Canon rules that never yield:
+## Ecosystem
 
-- 210 living kinds. No illegal hybrids.
-- Overlay pets can get tired, sick, or hide. Tokens are not burned by a minigame.
-- Desktop walk stays the main quest. Closing Cadence must leave Rui walking.
+- [computerpets-motion](https://github.com/RicheyWorks/computerpets-motion)
+- [computerpets-vox](https://github.com/RicheyWorks/computerpets-vox)
+- [computerpets-encore](https://github.com/RicheyWorks/computerpets-encore)
+- [computerpets-quests](https://github.com/RicheyWorks/computerpets-quests)
 
-## Neighbors
-
-- computerpets-motion
-- computerpets-vox
-- computerpets-encore
-- computerpets-quests
-
-## Layout
-
-```
-computerpets-cadence/
-  README.md
-  LICENSE
-  docs/DESIGN.md
-  src/                implementation lands here
-```
-
-## Run (Windows)
-
-```powershell
-godot --path . ; F5
-```
-
-Meet Rui first via the [flagship start-here](https://github.com/RicheyWorks/computerpets/blob/main/docs/START-HERE.md). This game is optional.
-
-## Links
-
-- Flagship: [RicheyWorks/computerpets](https://github.com/RicheyWorks/computerpets)
-- This repo: [RicheyWorks/computerpets-cadence](https://github.com/RicheyWorks/computerpets-cadence)
-- Map: [RicheyWorks/computerpets-ecosystem](https://github.com/RicheyWorks/computerpets-ecosystem)
-- Design file: [docs/DESIGN.md](docs/DESIGN.md)
+Start with the [ComputerPets flagship](https://github.com/RicheyWorks/computerpets) for the desktop pet. This repository describes an optional extension; the [ecosystem map](https://github.com/RicheyWorks/computerpets-ecosystem) explains the broader plan.
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
----
-
-*Two hundred ten living kinds. Keep them so a line does not go quiet.*
